@@ -1,6 +1,6 @@
-# Curso Livre PCibex
+# Curso Livre PCIbex
 
-Esse repositório faz parte do conteúdo ministrado no Curso Livre de PCIbex oferecido em abril de 2021 como atividade de acolhimento aos alunos do [PPG de Linguística da UFJF.](https://www2.ufjf.br/ppglinguistica/)
+Esse repositório faz parte do conteúdo ministrado no curso livre sobre *PCIbex* oferecido em abril de 2021, como atividade de acolhimento aos alunos do [PPG de Linguística da UFJF.](https://www2.ufjf.br/ppglinguistica/)
 
 O minicurso foi elaborado pela Professora Adjunta do PPG de linguística da UFJF, [Aline Fonseca](https://github.com/Alineafon); pela Doutoranda do PPG Linguística da UFJF, [Andressa Silva](https://github.com/asilva91); e pela Graduanda em Letras da UFJF, [Júlia Greco](https://github.com/julia-greco).
 
