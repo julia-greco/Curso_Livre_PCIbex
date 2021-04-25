@@ -2,15 +2,15 @@
 
 ## Instruções para criação de um script para experimento auditivo na plataforma GitHub
 
-A plataforma *PCIbex* pode ser, no início, bem complicada de ser utilizada por usuários inexperientes em programação, mas após acessar o [tutorial](https://www.pcibex.net/wiki/00-overview/) fornecido no site e ler alguns recursos na documentação, o seu funcionamento começa a ficar mais claro. Contudo o seu uso ainda pode ser prejudicado pelas próprias limitações da plataforma.
+A plataforma *PCIbex* pode ser, no início, bem complicada de ser utilizada por usuários inexperientes em programação, mas após acessar o [tutorial](https://doc.pcibex.net/basic-tutorial/) fornecido no site e ler alguns recursos na documentação, o seu funcionamento começa a ficar mais claro. Contudo o seu uso ainda pode ser prejudicado pelas próprias limitações da plataforma.
 
 Esse tutorial pretende guiá-lo através da criação de um *script* para um experimento auditivo dentro do GitHub, a fim de evitar certos estresses que o servidor do *PCIbex* pode causar. Antes de mergulharmos em linhas e mais linhas de código, é interessante ter alguns recursos prontos e preparados para facilitar o trabalho que teremos pela frente.
 
 ### Antes de começar
 
-Antes de começarmos a programar, é importante que você já tenha montado uma pasta denominada **chunk_includes** com os estímulos (no nosso caso áudios), imagens (para ícones, etc.) e a tabela. Nesse tutorial não iremos nos aprofundar em como montar uma tabela para uso no *PCIbex*, aconselhamos a consulta a uma [documentação](https://github.com/julia-greco/Minicurso_PCIbex/blob/master/Aula%203/Teste%20Auditivo/Tutorial%20Tabela.md) que explica com detalhes essa questão. 
+Antes de começarmos a programar, é importante que você já tenha montado uma pasta denominada **chunk_includes** com os estímulos (no nosso caso áudios), imagens (para ícones, etc.) e a tabela. Nesse tutorial não iremos nos aprofundar em como montar uma tabela para uso no *PCIbex*, aconselhamos a consulta a uma [documentação](https://github.com/julia-greco/Curso_Livre_PCIbex/blob/main/Aula%203/Teste%20Auditivo/Tutorial%20Tabela.md) que explica com detalhes essa questão. 
 
-Aconselhamos também a preparação prévia de um documento com o planejamento de como será a estrutura do experimento. Quantas telas terá, se cada tela terá um botão ou não, etc. Nesse repositório há um [exemplo](https://github.com/julia-greco/Minicurso_PCIbex/blob/master/Aula%203/Teste%20Auditivo/Estrutura%20%20do%20Experimento.md) da estrutura do experimento que desenvolveremos aqui.
+Aconselhamos também a preparação prévia de um documento com o planejamento de como será a estrutura do experimento. Quantas telas terá, se cada tela terá um botão ou não, etc. Nesse repositório há um [exemplo](https://github.com/julia-greco/Curso_Livre_PCIbex/blob/master/Aula%203/Teste%20Auditivo/Estrutura%20%20do%20Experimento.md) da estrutura do experimento que desenvolveremos aqui.
 
 É interessante também que se mantenha uma mesma formatação em todo o *script* para facilitar a localização de erros, como esquecer de colocar uma vírgula ou um parênteses final. Não mantenha todos os códigos alinnhados um embaixo do outro, construa hierarquias através de espaços e coloque vírgulas e parentêses alinhados verticalmente com código ao qual estão ligados. Um exemplo de uma formatação funcional seria:
 ```
@@ -56,7 +56,7 @@ Header(
 ```
 **Note** que o texto dos comentários está na cor **cinza**.
 
-Por fim, aconselhamos a utilização da ferramenta *debugger* durante a construção do *script*. Ela não só aponta os erros no código mas também oferece a possibilidade de pular telas inteiras, agilizando o processo de teste. Infelizmente nesse tutorial não será possível aprofundar no funcionamente do *debugger*, portanto sugerimos que leia a parte referente à [ferramenta](https://www.pcibex.net/wiki/025-debugger/) no tutorial fornecido no site do *PCIbex*. 
+Por fim, aconselhamos a utilização da ferramenta *debugger* durante a construção do *script*. Ela não só aponta os erros no código mas também oferece a possibilidade de pular telas inteiras, agilizando o processo de teste. Infelizmente nesse tutorial não será possível aprofundar no funcionamente do *debugger*, portanto sugerimos que leia a parte referente à [ferramenta](https://doc.pcibex.net/core-concepts/4_pcibex-farm#debugger) no tutorial fornecido no site do *PCIbex*. 
 
 Agora sim estamos prontos para começar.
 
@@ -66,7 +66,7 @@ Agora sim estamos prontos para começar.
 
 2.  Clique no nome do documento apenas criado e depois clique no ícone de lápis para começar a editar o seu script. 
 
-3.  O Primeiro comando que deve ser escrito é `PennController.ResetPrefix(null);`. Esse comando é essencial para que o resto dos seus comandos funcione. Ele inativa os prefixos que acompanham as declarações de elementos do PennController, tornando a linguagem mais simples e limpa. Para mais informações sobre esse tópico, acesse a página da documentação sobre [Reset Prefix](https://www.pcibex.net/wiki/penncontroller-resetprefix/)
+3.  O Primeiro comando que deve ser escrito é `PennController.ResetPrefix(null);`. Esse comando é essencial para que o resto dos seus comandos funcione. Ele inativa os prefixos que acompanham as declarações de elementos do PennController, tornando a linguagem mais simples e limpa. Para mais informações sobre esse tópico, acesse a página da documentação sobre [Reset Prefix](https://doc.pcibex.net/global-commands/#resetprefix)
 
 4. O próximo comando a ser escrito é o `Sequence()` Esse comando define a sequência na qual as telas do seu experimento irão aparecer. Nesse ponto é interessante você já ter em mente quantas telas você irá precisar, e também em qual ordem elas aparecerão. No nosso caso, precisaremos de quatro telas: uma de boas-vindas em que o participante preenche seus dados, uma com as instruções para o experimento, uma com o experimento em si, e uma com instruções finais e um agradecimento pela participação. Um exemplo do uso do `Sequence` seria:
 
@@ -199,15 +199,15 @@ newButton("Iniciar")
 ```javascript
 Template("minha_tabela.csv",
 
-         variable => newTrial( "Experimento",    
+         row => newTrial( "Experimento",    
                      )
 )
 ```
-- O comando *Template* irá receber então o nome da tabela na qual os estímulos do experimento estarão registrados. Ainda teremos a criação de uma função que apontará para todas as linhas da tabela especificada. Essa função no nosso exemplo recebeu o nome de `variable`, o mesmo nome que aparece no [tutorial](https://www.pcibex.net/wiki/00-overview/) fornecido no site do PCIbex, contudo você também a encontrará nomeada como `row` em algumas partes da documentação disponível no site.
+- O comando *Template* irá receber então o nome da tabela na qual os estímulos do experimento estarão registrados. Ainda teremos a criação de uma função que apontará para todas as linhas da tabela especificada. Essa função no nosso exemplo recebeu o nome de `row`, o mesmo nome que aparece no [tutorial](https://doc.pcibex.net/advanced-tutorial/) fornecido no site do PCIbex.
 
 13. Agora, dentro do novo *Trial* utilizaremos o comando `newAudio()`, que irá reproduzir os áudios indicados. Como `newAudio()` é um *Element* sonoro, ao invés de utilizar o comando `.print()` para exibi-lo utilizaremos o comando `.play()`. Exemplo:
 ```javascript
-newAudio("AudioExperimento", variable.AudioExperimento)
+newAudio("AudioExperimento", row.AudioExperimento)
             .play()
 ,
 ```        
@@ -235,7 +235,7 @@ getImage("alto_falante_icone.png")
 ```        
 17. Depois de ouvir o áudio, o participante irá ler duas sentenças, portanto iremos utilizar dois `newText()`. Entretanto, ao invés de escrevermos o texto que será impresso diretamente no elemento, utilizaremos `variable` para retomar as sentenças presentes na tabela. Exemplo:
 ```javascript
-newText("A",variable.SentencaA)
+newText("A",row.SentencaA)
 ,
 ```        
 - Note que demos um nome ao novo texto criado: **A**. Esse nome será utilizado no comando a seguir.
@@ -270,9 +270,9 @@ newSelector()
 //Indica o uso da tabela "treino_script_auditivo.csv"
 Template("tabela_script_auditivo.csv",
 // "variable" vai automaticamente apontar para cada linha da tabela "tabela_script_auditivo.csv"
-         variable => newTrial( "Experimento",
+         row => newTrial( "Experimento",
 //"variable" aponta para todas as linhas da coluna "AudioExperimento" da tabela "tabela_script_auditivo.csv" e toca o audio referente a elas
-                  newAudio("AudioExperimento", variable.AudioExperimento)
+                  newAudio("AudioExperimento", row.AudioExperimento)
                            .play()
                   ,
 //Exibe na tela a imagem "alto_falante_icone.png"
@@ -291,9 +291,9 @@ Template("tabela_script_auditivo.csv",
                            .remove()
                   ,
 //Cria um novo texto nomeado "A" e "variable" aponta para todas as linhas da coluna "SentencaA" e imprime o texto presente nelas 
-                   newText("A",variable.SentencaA)
+                   newText("A",row.SentencaA)
                   ,
-                   newText("B",variable.SentencaB)
+                   newText("B",row.SentencaB)
                   ,
 //Cria um canvas (uma caixa) e coloca os textos "A" e "B" um ao lado do outro
                   newCanvas( 1400 , 700 )
@@ -310,8 +310,8 @@ Template("tabela_script_auditivo.csv",
                   )
          
 //Envia para o arquivo "results" o conteúdo da coluna "Group" 
-         .log("Group", variable.Group)
-         .log("Item", variable.item)
+         .log("Group", row.Group)
+         .log("Item", row.item)
 );
 ```
 21. Crie mais um *Trial* intitulado **Final** e coloque um `newText()` com agradecimentos pela participação. Não se esqueça também de adicionar um comando `.wait()` no último `newText()` criado, pois como os resultados já foram salvos (devido ao comando que colocamos no `Sentence()`) não a necessidade de colocar um botão aqui. Exemplo:
