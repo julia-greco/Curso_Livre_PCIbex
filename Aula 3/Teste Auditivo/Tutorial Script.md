@@ -233,7 +233,7 @@ getImage("alto_falante_icone.png")
             .remove()
 ,
 ```        
-17. Depois de ouvir o áudio, o participante irá ler duas sentenças, portanto iremos utilizar dois `newText()`. Entretanto, ao invés de escrevermos o texto que será impresso diretamente no elemento, utilizaremos `variable` para retomar as sentenças presentes na tabela. Exemplo:
+17. Depois de ouvir o áudio, o participante irá ler duas sentenças, portanto iremos utilizar dois `newText()`. Entretanto, ao invés de escrevermos o texto que será impresso diretamente no elemento, utilizaremos `row` para retomar as sentenças presentes na tabela. Exemplo:
 ```javascript
 newText("A",row.SentencaA)
 ,
