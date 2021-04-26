@@ -12,6 +12,7 @@ Header(
          defaultText
             .css("font-size","1.2em")
             .print()
+            
          ,
 //Define que toda caixa de texto será impressa na tela e que o tamanho da fonte será "1.2em"
          defaultTextInput
@@ -23,14 +24,15 @@ Header(
             .css("font-size","1.2em")
             .center()
             .print()
-            .wait()       
+            .wait()
+         ,         
 )
 
 
 //Cria uma nova tela - Tela de coleta de dados do participante
 newTrial("Participante",
 
-//Cria o text "Bem-Vindos!"
+//Cria o texto "Bem-Vindos!"
          newText("<p>Bem-Vindos!</p>")
          ,
          newText("<p>Neste experimento, você vai ouvir uma frase e depois deve escolher a melhor opção de interpretação para ela.</p>")
@@ -85,6 +87,7 @@ Template("tabela_script_auditivo.csv",
         newImage("alto_falante_icone.png")
             .size( 90 , 90 )
             .print()
+            .center()
        
         ,
 //Cria um botão nomeado "Próximo", envia para o arquivo "results" a informação de quando ele foi pressionado e remove ele da tela
@@ -102,9 +105,9 @@ Template("tabela_script_auditivo.csv",
         newText("B",variable.SentencaB)
         ,
         //Cria um canvas (uma caixa) e coloca os textos "A" e "B" um ao lado do outro
-        newCanvas( 1400 , 700 )
-            .add( 150 , 100 , getText("A") )
-            .add( 850 , 100 , getText("B") )
+        newCanvas( "2000vw", "800vh" )
+            .add( "center at 25%" , "middle at 2%" , getText("A") )
+            .add( "center at 75%" , "middle at 2%" , getText("B") )
             .print() //Agora, dentro do canvas, é que os textos "A" e "B" serão impressos na tela
         ,
         //Possibilita a seleção dos textos "A" e "B" através do mouse ou das teclas "A" e "B". Também envia para o arquivo "result" qual texto foi selecionado
@@ -122,14 +125,12 @@ Template("tabela_script_auditivo.csv",
 
 //Nova Tela - Tela final    
 newTrial( "Final" ,
-    newText("<p> O experimento foi conclu&iacute;do. Obrigada pela participa&ccedil;&atilde;o!</p>")
-        .css("font-size","1.2em")
-        .print()
+    newText("<p> O experimento foi concluído. Obrigada pela participação!</p>")
+    .center()
     ,
-    newText("<p> Voc&ecirc; receber&aacute; um e-mail com a sua declara&ccedil;&atilde;o de participa&ccedil;&atilde;o.</p>")
-        .css("font-size","1.2em")
-        .print()
-        .wait()
+    newText("<p> Você receberá um e-mail com a sua declaração de participação.</p>")
+    .center()
+    .wait()
  )
 
 //Ajeita a barra de pogresso para que ela fique completa
