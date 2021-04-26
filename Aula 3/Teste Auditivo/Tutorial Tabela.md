@@ -1,8 +1,8 @@
-## Instruções para criação de uma tabela para uso em um script de um experimento auditivo.
+## Instruções para criação de uma tabela para uso em um script de um teste auditivo.
 
 A parte experimental dos *scripts* do PCIbex funciona tendo como base uma tabela. Dessa forma, torna-se essencial para a construção de um bom *script* saber como montar uma tabela que atenda às necessidades do seu experimento. 
 
-Esse tutorial tem como objetivo explicar e exemplificar a criação de uma tabela para um experimento linguístico que tenha áudios como estímulos experimentais. Aconselhamos a utilização desse documento em conjunto com as [instruções](https://github.com/julia-greco/Minicurso_PCIbex/blob/master/Aula%203/Teste%20Auditivo/Tutorial%20Script.md) de como montar um *script*, para o mesmo tipo de experimento, presente nesse respositório na pasta **data_includes**.
+Esse tutorial tem como objetivo explicar e exemplificar a criação de uma tabela para um experimento linguístico que tenha áudios como estímulos experimentais. Aconselhamos a utilização desse documento em conjunto com as [instruções](https://github.com/julia-greco/Curso_Livre_PCIbex/blob/master/Aula%203/Teste%20Auditivo/Tutorial%20Script.md) de como montar um *script*, para o mesmo tipo de experimento, presente nesse respositório na pasta **data_includes**.
 
 ### Experimento auditivo
 
