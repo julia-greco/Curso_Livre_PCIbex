@@ -1,0 +1,150 @@
+PennController.ResetPrefix(null);//Inicia os comandos PennController do Ibex.
+PennController.DebugOff();
+
+Sequence("Inicio","Instrucoes", randomize("Itens"),SendResults(),"Final");
+//O comando Sequence() traz a sequência de execução do experimento.
+//O comando randomize() indica que as frases do experimento, que estão dentro de “Itens”, serão randomizadas automaticamente.
+//O comando SendResults() grava os resultados do experimento antes da exibição da mensagem final do experimento.
+//As vírgulas funcionam como um separador e indicam que novos elementos e novas séries de comandos vão começar.
+// O parênteses são essenciais, abrem e fecham elementos e comandos.
+
+newTrial("Inicio",
+//Cada tela do experimento é formada pelo elemento newTrial()
+
+//Usamos newText() para criarmos elementos de texto.
+   
+    newText("<p>Bem-vindo! Antes de iniciarmos, preencha os dados a seguir:</p>")
+    .print() //Esse comando imprime o conteúdo na tela.
+    .css("font-size","1.2em") //Esse comando define o tamanho da fonte do texto.
+    ,
+    newText("<p>Nome:</p>")
+    .print()
+    .css("font-size","1.2em")
+    ,
+    newTextInput("Nome") //Esse elemento cria uma caixa de texto. 
+    .print()
+    ,
+    newText("<p>Idade:</p>")
+    .print()
+    .css("font-size","1.2em")
+    ,
+    newTextInput("Idade")
+    .print()
+    ,
+    newButton("Iniciar")//Esse elemento cria um botão na tela.
+    .css("font-size","1.2em")
+    .print()
+    .wait() //Esse comando aguarda até que o botão seja clicado para então executar os próximos comandos.
+    ,
+    newVar("ID") // Esse elemento cria uma variável para receber informações dos participantes.
+    .global()//Esse comando torna a variável global, elas poderão ser recuperadas em outras partes do script.
+    .set( getTextInput("Nome") ) // Esse comando grava o conteúdo de texto digitado pelo participante.
+    ,
+    newVar("IDADE")
+    .global()
+    .set( getTextInput("Idade") )
+   
+)
+ //Adicionamos o comando .log() para enviar os dados fornecidos pelo participante para o arquivo de "Results”.
+
+    .log( "ID" , getVar("NOME") )
+    .log( "AGE" , getVar("IDADE") 
+
+); //O ponto e vírgula é opcional.
+
+newTrial("Instrucoes",
+    
+//O comando .center() centraliza os elementos de texto (newText) e o botão (newButton).
+// Os códigos de HTML <p> e </p> indicam parágrafo.
+//Os códigos de HTML <strong>e </strong> colocam o texto em negrito. 
+//Nessa versão de agora, o script do PCIbex lê sinais diacríticos.
+
+    newText("<p>Este experimento consiste em ler sentenças segmentadas e responder perguntas de compreensão.</p>")
+    .print()
+    .center()
+    .css("font-size","1.2em")
+    ,
+    newText("<p>Use a tecla <strong>ESPAÇO</strong> para ler cada trecho. Aperte as teclas C e M para responder SIM ou NÃO.</p>")
+    .print()
+    .center()
+    .css("font-size","1.2em")    
+    ,
+    newButton("Iniciar")
+    .print()
+    .center()
+    .css("font-size","1.2em")
+    .wait()
+);
+
+// O Template indica o uso da tabela “Itens.csv", todas as linhas desse arquivo serão exibidas na tela.
+// A função variable vai automaticamente apontar para cada linha da tabela “Itens.csv".
+Template("Itens.csv",
+
+ variable => newTrial("Itens",
+
+// DashedSentence: segmenta automaticamente a frase dentro de {s: “...”}.
+// O comando variable aponta para todas as linhas da coluna Frase da tabela “Itens.csv" (ver a tabela).
+//.log(): grava os resultados de reação de tempo de cada segmento da frase.
+//.wait(): o segmento subsequente só aparecerá quando o participante apertar a tecla "espaço" do teclado.
+//.remove(): o segmento anterior some da tela, dando lugar ao segmento subsequente.
+
+    newController("DashedSentence", {s: variable.Frase} )
+    .css("font-size","1.0em")
+    .print()
+    .log()
+    .wait() 
+    .remove()
+    ,
+
+//O comando variable aponta para todas as linhas da coluna Pergunta da tabela “Itens.csv". //Nos elementos de newText() se encontram as opções de resposta para a pergunta.
+    newText("Pergunta", variable.Pergunta)
+    .css("font-size","1.2em")
+    .center()
+    ,
+    newText("C",  "Sim (C)")
+    .css("font-size","1.2em")
+    ,
+    newText("M", "Não (M)")
+    .css("font-size","1.2em")
+    ,
+
+//O elemento newCanvas() traz as configurações sobre a disposição da pergunta e as opções "Sim" e "Não" na tela. O "Sim" será exibido à esquerda e o "Não" à direita, ambos abaixo da pergunta.
+    newCanvas(1800, 900)
+    .add(200, 0, getText("Pergunta"))
+    .add(50, 150, getText("C"))
+    .add(550, 150, getText("M"))
+    .print()
+    ,
+
+// O elemento newSelector() possibilita a seleção das opções "Sim" e "Não" através do mouse ou das teclas "C" e "M".  As duas opções são adicionadas através de .add(getText(“C"), getText(“M"))e keys()que estão associados respectivamente às teclas C e M, especificadas nas linhas acima.
+// O comando .log() envia para o arquivo “Results" qual opção foi selecionada. O comando .wait() faz com que o próximo item só seja exibido quando uma das opções for escolhida.
+
+
+    newSelector()
+    .add( getText("C") , getText("M") )
+    .keys(        "C"    ,       "M"   )
+    .log()
+    .wait()
+    )
+
+//Os comandos de .log() enviam para o arquivo de resultados informações sobre qual lista foi rodada (" Group ") e os tipos de itens rodados ("Item").
+    .log("Grupo", variable.Grupo)
+    .log("Item", variable.Item)
+
+    );
+
+//Esse comando grava os resultados do experimento inteiro.
+PennController.SendResults;
+    
+    newTrial( "Final" ,
+    newText("Fim do experimento! Obrigado!")
+    .css("font-size","1.2em")
+    .center()
+    .print()
+    .wait()
+
+    )    
+    
+//Esse comando indica que a barra de progresso está totalmente completa durante a exibição da mensagem final do experimento. A mensagem final não é contada como um item experimental.
+ .setOption("countsForProgressBar", false);
+
